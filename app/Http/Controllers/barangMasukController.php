@@ -20,8 +20,7 @@ class barangMasukController extends Controller
             $barangMasuk = DB::table('barang_masuks')
             ->join('barang_gudangs', 'barang_masuks.id_barang_gudang', '=', 'barang_gudangs.id')
             ->join('satuan', 'barang_gudangs.id_satuan', '=', 'satuan.id')
-            ->select('barang_masuks.id','barang_masuks.id_barang_gudang','barang_masuks.jumlah','barang_masuks.tanggal','barang_gudangs.nama_barang','satuan.nama_satuan')
-            ;
+            ->select('barang_masuks.id','barang_masuks.id_barang_gudang','barang_masuks.jumlah','barang_masuks.tanggal','barang_gudangs.nama_barang','satuan.nama_satuan');
         
             dd($barangMasuk);
 

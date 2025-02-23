@@ -22,24 +22,7 @@ class BarangGudangController extends Controller
             $paginate = $request->input('paginate',10);
             $type = $request->input('type','Langsung');
 
-            $barangGudang = barang_gudang::select(
-                'barang_gudangs.id',
-                'barang_gudangs.nama_barang',
-                'barang_gudangs.type_barang',
-                'barang_gudangs.stok',
-                'barang_gudangs.id_satuan',
-                'harga_barang_gudangs.harga_barang'
-            )
-            ->leftJoin('harga_barang_gudangs', function ($join) {
-                $join->on('barang_gudangs.id', '=', 'harga_barang_gudangs.id_barang_gudang')
-                    ->whereRaw('harga_barang_gudangs.created_at = (SELECT MAX(h2.created_at) FROM harga_barang_gudangs h2 WHERE h2.id_barang_gudang = harga_barang_gudangs.id_barang_gudang)');
-            })
-            ->with('satuan:id,nama_satuan')
-            ->when($search, function ($query) use ($search) {
-                $query->where('barang_gudangs.nama_barang', 'like', '%' . $search . '%');
-            })
-            ->where('type_barang', $type)
-            ->paginate($paginate);
+        
         
             
             $satuan = satuan::select('id', 'nama_satuan')->get();
